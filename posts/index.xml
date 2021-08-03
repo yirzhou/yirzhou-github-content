@@ -6,18 +6,17 @@ I have a lot of ideas that I want to work on. I&amp;rsquo;m not disclosing any o
 <p>By default, Homebrew relies on GitHub for their repo distributions. In China, accessing GitHub is extremely slow. I immediately realized this when I attempted to run <code>brew update</code> and it timed out with &ldquo;443&rdquo; errors.</p>
 <h2 id="the-solution">The solution</h2>
 <p>Luckily, Homebrew has a huge Chinese community that has established repo sources in China. All I needed to do was to set the sources to one of the Chinese ones for <code>homebrew</code>, <code>homebrew-core</code>, and <code>homebrew-cask</code>. I&rsquo;m using the ones set up by the University of Science and Technology of China:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">git -C <span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>brew --repo<span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span> remote set-url origin https://mirrors.ustc.edu.cn/brew.git
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">git -C <span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>brew --repo<span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span> remote set-url origin https://mirrors.ustc.edu.cn/brew.git
 
 git -C <span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>brew --repo homebrew/core<span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span> remote set-url origin https://mirrors.ustc.edu.cn/homebrew-core.git
 
 git -C <span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>brew --repo homebrew/cask<span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span> remote set-url origin https://mirrors.ustc.edu.cn/homebrew-cask.git
 
 </code></pre></div><p>I also need to change the environment variable <code>HOMEBREW_BOTTLE_DOMAIN</code> by adding this line to my <code>.zshrc</code>:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">export HOMEBREW_BOTTLE_DOMAIN<span style="color:#f92672">=</span>https://mirrors.ustc.edu.cn/homebrew-bottles/
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">export HOMEBREW_BOTTLE_DOMAIN<span style="color:#f92672">=</span>https://mirrors.ustc.edu.cn/homebrew-bottles/
 </code></pre></div><p>To sum up, I can put the above code into a shell script <code>change_source.sh</code>:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e">#!/bin/sh
-</span><span style="color:#75715e"></span>
-git -C <span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>brew --repo<span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span> remote set-url origin https://mirrors.ustc.edu.cn/brew.git
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e">#!/bin/sh
+</span><span style="color:#75715e"></span>git -C <span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>brew --repo<span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span> remote set-url origin https://mirrors.ustc.edu.cn/brew.git
 
 git -C <span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>brew --repo homebrew/core<span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span> remote set-url origin https://mirrors.ustc.edu.cn/homebrew-core.git
 
@@ -31,7 +30,7 @@ git -C <span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</s
   source ~/.zshrc
 <span style="color:#66d9ef">fi</span>
 </code></pre></div><p>To restore the sources, I have created a neat shell script <code>restore_sources.sh</code> that sets all sources back to GitHub:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">git -C <span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>brew --repo<span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span> remote set-url origin https://github.com/Homebrew/brew.git
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">git -C <span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>brew --repo<span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span> remote set-url origin https://github.com/Homebrew/brew.git
 
 git -C <span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>brew --repo homebrew/core<span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span> remote set-url origin https://github.com/Homebrew/homebrew-core.git
 
@@ -80,7 +79,7 @@ Introduction to AWS SDK for JavaScript v3 AWS have recently released Version 3 o
 <h2 id="lets-help-our-tools-help-us">Let&rsquo;s help our tools help us</h2>
 <h3 id="typescript-over-javascript">TypeScript over JavaScript</h3>
 <p>The most interesting feature to me, is that this new version is written in <a href="https://www.typescriptlang.org/">TypeScript</a>. We all know that it&rsquo;s easy to write type-unsafe and buggy JavaScript due to its dynamic typing system. One component of our final-year design project is in vanilla JavaScript, and people easily get perplexed when looking at the code because they need a lot of time to figure out what certain variables are. For example, suppose that we have a job scheduler:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Scheduler</span> {
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Scheduler</span> {
   <span style="color:#a6e22e">jobQueue</span>;
 
   <span style="color:#a6e22e">constructor</span>(<span style="color:#a6e22e">jobs</span>) {
@@ -101,7 +100,7 @@ Introduction to AWS SDK for JavaScript v3 AWS have recently released Version 3 o
 </code></pre></div><p>Although the code above is simple, what exactly is a &ldquo;job&rdquo;? It&rsquo;s pretty intuitive to deduce that <code>jobQueue</code> is an array of jobs, but what is a <code>job</code>? Is it a string? Probably not since <code>string</code> doesn&rsquo;t have a <code>run()</code> function. What type is it?</p>
 <p>Apart from loose typing, nobody will stop you if you call <code>addJob</code> by passing a number, string, or any other type. What&rsquo;s worse, is that you will only catch the error at run time, which could lead to millions of dollars of loss for your company&hellip;</p>
 <p>TypeScript allows us to add type annotations and any type violation will be caught at compile time by the TypeScript compiler:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-typescript" data-lang="typescript"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Job</span> {
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-typescript" data-lang="typescript"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Job</span> {
     <span style="color:#75715e">// some member variables
 </span><span style="color:#75715e"></span>    <span style="color:#66d9ef">constructor</span>(<span style="color:#a6e22e">args</span>...){<span style="color:#75715e">//...}
 </span><span style="color:#75715e"></span>
@@ -134,11 +133,11 @@ Introduction to AWS SDK for JavaScript v3 AWS have recently released Version 3 o
 <h2 id="using-aws-sdk-v3-to-fetch-from-s3">Using AWS SDK V3 to fetch from S3</h2>
 <h3 id="install-typescript">Install TypeScript</h3>
 <p>We need to install TypeScript as our project development dependency:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">npm install --save-dev typescript @types/node
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">npm install --save-dev typescript @types/node
 </code></pre></div><p><code>@types/node</code> will provide us with type annotations in VSCode for various libraries.</p>
 <h3 id="configure-typescript-compiler">Configure TypeScript compiler</h3>
 <p>First, we need to configure our TypeScript compiler for our project in a file named <code>tsconfig.js</code>. More information about this file can be found <a href="https://www.typescriptlang.org/docs/handbook/tsconfig-json.html">here</a>. Mine looks like the following:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">{
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">{
   <span style="color:#f92672">&#34;compilerOptions&#34;</span>: {
     <span style="color:#f92672">&#34;target&#34;</span>: <span style="color:#e6db74">&#34;ES6&#34;</span>,
     <span style="color:#f92672">&#34;module&#34;</span>: <span style="color:#e6db74">&#34;ES6&#34;</span>,
@@ -156,13 +155,13 @@ Introduction to AWS SDK for JavaScript v3 AWS have recently released Version 3 o
 <h3 id="code">Code</h3>
 <p>The best way to learn something new is to practice. Let&rsquo;s write a JavaScript library to be used in browsers that fetchs a file to a S3 bucket. I will go with the <a href="https://docs.aws.amazon.com/cognito/latest/developerguide/identity-pools.html">AWS Cognito Identity Pool</a> which gives users temporary access to your AWS services, which, in our case, are fetching files to a S3 bucket.</p>
 <p>First, let&rsquo;s install the modules we need for fetching from S3:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">npm install --save @aws-sdk/client-s3 @aws-sdk/client-cognito-identity @aws-sdk/credential-provider-cognito-identity
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">npm install --save @aws-sdk/client-s3 @aws-sdk/client-cognito-identity @aws-sdk/credential-provider-cognito-identity
 </code></pre></div><p>We then import them in our code:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-typescript" data-lang="typescript"><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">S3</span> } <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#34;@aws-sdk/client-s3&#34;</span>;
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-typescript" data-lang="typescript"><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">S3</span> } <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#34;@aws-sdk/client-s3&#34;</span>;
 <span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">CognitoIdentityClient</span> } <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#34;@aws-sdk/client-cognito-identity&#34;</span>;
 <span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">fromCognitoIdentityPool</span> } <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#34;@aws-sdk/credential-provider-cognito-identity&#34;</span>;
 </code></pre></div><p>Then, we define a function to fetch a file specified by a &ldquo;key&rdquo; from S3. We assume that we know the identity pool ID, the region, and the bucket name. We only require the object key from the user:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-typescript" data-lang="typescript"><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">fetchFromBucket</span>(<span style="color:#a6e22e">key</span>: <span style="color:#66d9ef">string</span>) {
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-typescript" data-lang="typescript"><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">fetchFromBucket</span>(<span style="color:#a6e22e">key</span>: <span style="color:#66d9ef">string</span>) {
   <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">region</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;ca-central-1&#34;</span>;
 
   <span style="color:#75715e">// Initialize an S3 service with credentials for our identity pool.
@@ -193,9 +192,9 @@ Introduction to AWS SDK for JavaScript v3 AWS have recently released Version 3 o
 <h3 id="bundle-with-webpack">Bundle with webpack</h3>
 <p>I mentioned that TypeScript needs to be compiled to JavaScript to run in browsers. Apart from that, we also need to bundle the AWS modules in use with our library. We can achieve this using <a href="https://webpack.js.org/">webpack</a>, which is a bundler that can bundle any web application asset. The short version of what it does is that it will put all necessary code into one file, which we can use in a browser by including it in an HTML file with a <code>script</code> tag.</p>
 <p>Webpack doesn&rsquo;t understand TypeScript by default, but it has a rich ecosystem and comes with a TypeScript plugin. We also need to bundle JSON files into our code as the AWS SDK uses them, and there&rsquo;s a JSON plugin for that as well. We need to install them as our development dependencies:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">npm install --save-dev webpack webpack-cli ts-loader json-loader
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">npm install --save-dev webpack webpack-cli ts-loader json-loader
 </code></pre></div><p>We then define a configuration file for webpack, named <code>webpack.config.js</code>:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">path</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">require</span>(<span style="color:#e6db74">&#34;path&#34;</span>);
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">path</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">require</span>(<span style="color:#e6db74">&#34;path&#34;</span>);
 
 <span style="color:#a6e22e">module</span>.<span style="color:#a6e22e">exports</span> <span style="color:#f92672">=</span> {
   <span style="color:#a6e22e">target</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;web&#34;</span>,
@@ -235,18 +234,18 @@ Introduction to AWS SDK for JavaScript v3 AWS have recently released Version 3 o
 <li><code>output</code> apparently specifies the bundled file. Because it&rsquo;s a library, we need to specify the value for <code>output.library</code>. <code>[name]</code> maps to the keys in <code>entry</code>, so our bundled file will be <code>./dist/s3.js</code> and the function <code>fetchFromBucket</code> is under <code>s3</code>. To use it, we simply call <code>s3.fetchFromBucket()</code>.</li>
 </ul>
 <p>Finally, we can add a simple <code>build</code> script in <code>package.json</code>:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json"><span style="color:#e6db74">&#34;scripts&#34;</span><span style="color:#960050;background-color:#1e0010">:</span> {
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json"><span style="color:#e6db74">&#34;scripts&#34;</span><span style="color:#960050;background-color:#1e0010">:</span> {
     <span style="color:#f92672">&#34;test&#34;</span>: <span style="color:#e6db74">&#34;echo \&#34;Error: no test specified\&#34; &amp;&amp; exit 1&#34;</span>,
     <span style="color:#f92672">&#34;build&#34;</span>: <span style="color:#e6db74">&#34;webpack&#34;</span>
   }<span style="color:#960050;background-color:#1e0010">,</span>
 </code></pre></div><p>To build/bundle our code, simply run</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">npm run build
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">npm run build
 <span style="color:#75715e"># we can also run &#34;webpack&#34; directly.</span>
 </code></pre></div><p>This generates <code>./dist/s3.js</code> which we can directly import into browsers!</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;<span style="color:#f92672">script</span> <span style="color:#a6e22e">src</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;s3.js&#34;</span>&gt;
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;<span style="color:#f92672">script</span> <span style="color:#a6e22e">src</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;s3.js&#34;</span>&gt;
 &lt;<span style="color:#f92672">script</span> <span style="color:#a6e22e">src</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;index.js&#34;</span>&gt;
 </code></pre></div><p>and in <code>index.js</code>, we can call our function to fetch an object from S3:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#a6e22e">s3</span>.<span style="color:#a6e22e">fetchFromBucket</span>(<span style="color:#e6db74">&#34;example_object_key&#34;</span>);
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#a6e22e">s3</span>.<span style="color:#a6e22e">fetchFromBucket</span>(<span style="color:#e6db74">&#34;example_object_key&#34;</span>);
 </code></pre></div><h2 id="one-more-thing">One more thing</h2>
 <p>This seems a rather long process. It takes time initially but the rest of the team will easily benefit from this workflow. Also, I learned about what module bundlers could do and how to create JavaScript libraries for various platforms.</p>
 <p>Although I&rsquo;m not into front-end web development, I&rsquo;ve been amazed by its rich tooling and ecosystem 😃.</p>
@@ -256,7 +255,7 @@ What makes this article slightly different is that unlike the traditional way of
 <p>What makes this article slightly different is that unlike the traditional way of defining an entry point for your testing program (ie. a <code>main()</code> function), I will walk through how NOT to do that - how to use <code>googletest</code> with <a href="https://cmake.org/">CMake</a> without defining any entry point.</p>
 <h2 id="test-case">Test case</h2>
 <p>Let&rsquo;s suppose that I want to test some function. The standard way to define a test case using <code>gtest</code> is the following:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c++" data-lang="c++"><span style="color:#75715e">// Component under test
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c++" data-lang="c++"><span style="color:#75715e">// Component under test
 </span><span style="color:#75715e"></span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;myproject/maths.h&gt;</span><span style="color:#75715e">
 </span><span style="color:#75715e"></span>
 <span style="color:#75715e">// gtest include
@@ -271,7 +270,7 @@ TEST(my_function_test, basic) {
 }
 </code></pre></div><p>As you see, I have defined a test case called <code>my_function_test.basic</code> and it tests if <code>abs</code> returns the correct absolute value - nothing exciting.</p>
 <p>However, this is just a function - to run our test case, naturally we want to have some entry point just like any program. There&rsquo;s one way to do it: define a <code>main</code> function somewhere like this:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c++" data-lang="c++"><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(<span style="color:#66d9ef">int</span> argc, <span style="color:#66d9ef">char</span> <span style="color:#f92672">**</span>argv) {
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c++" data-lang="c++"><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(<span style="color:#66d9ef">int</span> argc, <span style="color:#66d9ef">char</span> <span style="color:#f92672">**</span>argv) {
     <span style="color:#f92672">::</span>testing<span style="color:#f92672">::</span>InitGoogleTest(<span style="color:#f92672">&amp;</span>argc, argv);
     <span style="color:#66d9ef">return</span> RUN_ALL_TESTS();
 }
@@ -280,7 +279,7 @@ TEST(my_function_test, basic) {
 <p>A main function seems out of place being placed in a directory specifically for test cases. Fortunately, Google agrees with this idea and they&rsquo;ve provided the <code>gtest_main</code> library that gives a basic implementation of <code>main()</code>. It means that we don&rsquo;t need an explicit entry point in our program.</p>
 <h2 id="cmake">CMake</h2>
 <p>It&rsquo;s simple to use <code>gtest_main</code> with <code>CMake</code>:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cmake" data-lang="cmake">file(<span style="color:#e6db74">GLOB_RECURSE</span> <span style="color:#e6db74">SRCS</span> <span style="color:#e6db74">CONFIGURE_DEPENDS</span> <span style="color:#f92672">${</span>CMAKE_CURRENT_SOURCE_DIR<span style="color:#f92672">}</span><span style="color:#e6db74">/*.cpp</span>)<span style="color:#960050;background-color:#1e0010">
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cmake" data-lang="cmake">file(<span style="color:#e6db74">GLOB_RECURSE</span> <span style="color:#e6db74">SRCS</span> <span style="color:#e6db74">CONFIGURE_DEPENDS</span> <span style="color:#f92672">${</span>CMAKE_CURRENT_SOURCE_DIR<span style="color:#f92672">}</span><span style="color:#e6db74">/*.cpp</span>)<span style="color:#960050;background-color:#1e0010">
 </span><span style="color:#960050;background-color:#1e0010">
 </span><span style="color:#960050;background-color:#1e0010"></span>set(<span style="color:#e6db74">target,</span> <span style="color:#e6db74">my_project.t</span>)<span style="color:#960050;background-color:#1e0010">
 </span><span style="color:#960050;background-color:#1e0010">
@@ -298,7 +297,7 @@ TEST(my_function_test, basic) {
 </span><span style="color:#960050;background-color:#1e0010">
 </span><span style="color:#960050;background-color:#1e0010"></span>gtest_discover_tests(<span style="color:#f92672">${</span>target<span style="color:#f92672">}</span>)<span style="color:#960050;background-color:#1e0010">
 </span></code></pre></div><p>Or it coule be simpler:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cmake" data-lang="cmake">file(<span style="color:#e6db74">GLOB_RECURSE</span> <span style="color:#e6db74">SRCS</span> <span style="color:#e6db74">CONFIGURE_DEPENDS</span> <span style="color:#f92672">${</span>CMAKE_CURRENT_SOURCE_DIR<span style="color:#f92672">}</span><span style="color:#e6db74">/*.cpp</span>)<span style="color:#960050;background-color:#1e0010">
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cmake" data-lang="cmake">file(<span style="color:#e6db74">GLOB_RECURSE</span> <span style="color:#e6db74">SRCS</span> <span style="color:#e6db74">CONFIGURE_DEPENDS</span> <span style="color:#f92672">${</span>CMAKE_CURRENT_SOURCE_DIR<span style="color:#f92672">}</span><span style="color:#e6db74">/*.cpp</span>)<span style="color:#960050;background-color:#1e0010">
 </span><span style="color:#960050;background-color:#1e0010">
 </span><span style="color:#960050;background-color:#1e0010"></span>set(<span style="color:#e6db74">target,</span> <span style="color:#e6db74">my_project.t</span>)<span style="color:#960050;background-color:#1e0010">
 </span><span style="color:#960050;background-color:#1e0010">
@@ -394,7 +393,7 @@ Perfect snow This Christmas actually feels like a Christmas in terms of the weat
 <h3 id="42-devcontainerjson">4.2 <code>.devcontainer.json</code></h3>
 <p>First, we need to define how VSCode can build and open up a container in a special file: <code>.devcontainer.json</code>. This file can be standalone in your root project directory, or in a separate <code>.devcontainer</code> directory (<code>.devcontainer/devcontainer.json</code>, without the first dot if in the directory).</p>
 <p>We can set values of plenty of <a href="https://code.visualstudio.com/docs/remote/devcontainerjson-reference">properties</a> that define the locations of <code>docker-compose.yml</code>, <code>Dockerfile</code>, on-init and post-init commands, extensions we wish to install, and many more. For me, I have the following setup:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">{
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">{
   <span style="color:#f92672">&#34;dockerComposeFile&#34;</span>: [<span style="color:#e6db74">&#34;../docker-compose.yml&#34;</span>, <span style="color:#e6db74">&#34;docker-compose.override.yml&#34;</span>],
   <span style="color:#f92672">&#34;initializeCommand&#34;</span>: <span style="color:#e6db74">&#34;mkdir -p debian &amp;&amp; cat */debian/control &gt; debian/control&#34;</span>,
   <span style="color:#f92672">&#34;service&#34;</span>: <span style="color:#e6db74">&#34;dev-env&#34;</span>,
@@ -426,7 +425,7 @@ Perfect snow This Christmas actually feels like a Christmas in terms of the weat
 </ul>
 <h3 id="43-docker-composeyml">4.3 <code>docker-compose.yml</code></h3>
 <p><a href="https://docs.docker.com/compose/">Docker Compose</a> enables defining and running <strong>multi-container</strong> Docker applications. I personally think that its main feature is to spin up containers in an order if there are dependencies between them. For the purpose of this setup, I will only spin up one container.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">version</span>: <span style="color:#e6db74">&#34;3.7&#34;</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">version</span>: <span style="color:#e6db74">&#34;3.7&#34;</span>
 <span style="color:#f92672">services</span>:
   <span style="color:#f92672">dev-env</span>:
     <span style="color:#f92672">build</span>:
@@ -444,7 +443,7 @@ Perfect snow This Christmas actually feels like a Christmas in terms of the weat
 <p><code>sleep infinity</code> allows the container to be running instead of exiting immediately which will cause an error.</p>
 <h3 id="44-dockerfile">4.4 <code>Dockerfile</code></h3>
 <p>The last missing piece is the <code>Dockerfile</code> (in my case, <code>dev.Dockerfile</code>) which defines the build steps of my container:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Dockerfile" data-lang="Dockerfile"><span style="color:#66d9ef">FROM</span><span style="color:#e6db74"> ubuntu:latest</span><span style="color:#960050;background-color:#1e0010">
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Dockerfile" data-lang="Dockerfile"><span style="color:#66d9ef">FROM</span><span style="color:#e6db74"> ubuntu:latest</span><span style="color:#960050;background-color:#1e0010">
 </span><span style="color:#960050;background-color:#1e0010">
 </span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">LABEL</span> description<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;Development environment workspace&#34;</span><span style="color:#960050;background-color:#1e0010">
 </span><span style="color:#960050;background-color:#1e0010">
