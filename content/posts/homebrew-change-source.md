@@ -44,7 +44,6 @@ To sum up, I can put the above code into a shell script `change_source.sh`:
 
 ```bash
 #!/bin/sh
-
 git -C "$(brew --repo)" remote set-url origin https://mirrors.ustc.edu.cn/brew.git
 
 git -C "$(brew --repo homebrew/core)" remote set-url origin https://mirrors.ustc.edu.cn/homebrew-core.git
